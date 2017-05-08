@@ -1,0 +1,59 @@
+1) Установить необходимые пакеты: apache2 mysql-server php5 libapache2-mod-php5 php5-mysql php5-snmp snmp (либо собрать из исходников LAMP с поддержкой snmp)
+
+
+2) содержимое папки PON поместить в нужный каталог на веб-сервере
+
+
+3) создать БД, пользователя БД и дать ему права (не забудьте указать СВОИ sqluser и sqlpassword:
+
+	CREATE DATABASE poncontrol DEFAULT CHARSET utf8;
+	CREATE USER 'sqluser'@'localhost' IDENTIFIED BY 'sqlpassword';
+	GRANT ALL PRIVILEGES ON poncontrol to 'sqluser'@'localhost';
+	FLUSH PRIVILEGES;
+
+
+
+4) Указать необходимые данные в файле vars.php, где:
+	
+		$mysql_user - Пользователь БД, которого вы создали в предыдущем шаге
+		$mysql_pass - пароль пользователя БД
+
+		$telnet_user - telnet логин
+		$telnet_pass - telnet пароль
+		$enable_pass - enable пароль
+		(необходимы для снятия FDB таблицы)
+
+		$default_lat, $default_lon - координаты маркера по умолчанию при указании ОНУшки на карте
+
+
+
+
+5) Создать скрипт (например /home/user/peleng.sh) , отвечающий за периодический опрос следующего содержания (FreeBSD требует установки wget либо использования fetch):
+
+		#/bin/bash
+		site_link="http://pon.example.org/pon" #Адрес, по которому будет доступен ваш PonControl
+		apache_user="apacheadmin" #Логин (при использовании апачевой авторизации)
+		apache_password="apachepassword"	#Пароль (при использовании апачевой авторизации)
+		wget --user $apache_user --password $apache_password $site_link/ping_all.php -O temp.php && rm temp.php*	
+
+
+
+
+6) Сделать его исполняемым:
+		chmod +x /home/user/peleng.sh
+
+
+
+
+7) Добавить этот скрипт в CRON:
+	на опрос каждого олта желательно отводить не менее 2 минут CRONа.
+
+	например, при 3 OLT: 
+	
+	#Pon Control
+	*/6 * * * * sh /home/user/scripts/peleng_olts.sh
+
+
+
+8) Зайти в браузере по адресу установки и добавить свой первый OLT
+	(если snmp community не указаны - будут использоваться стандартные public/private)
