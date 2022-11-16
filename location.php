@@ -1,6 +1,4 @@
 <?php
-
-
 $maptype = $_GET["maptype"];
 if ($maptype == "heremap") {
 $layer = "heremapLayer";
@@ -33,9 +31,9 @@ include 'get_comments_by_id.php';
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Инструмент для определения координат - API Яндекс.Карт 2.0</title>
+<title>Инструмент за определяне на координатите - API Яндекс.Карта 2.0</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script src="http://api-maps.yandex.ru/2.0.7/?load=package.full&lang=ru-RU"></script>
+<script src="http://api-maps.yandex.ru/2.0.7/?load=package.full&lang=en-US"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <link href="/examples/add-users-ymapsapi2/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -210,7 +208,7 @@ echo "$comments<br/>";
 <font size="3">
 <div align="left">
 <?php
-echo "<a href=\"index.php?page=onu&olt=$olt&mac=$mac&maptype=$maptype\"><<<Карточка ONU</a>";
+echo "<a href=\"index.php?page=onu&olt=$olt&mac=$mac&maptype=$maptype\"><<<Карта ONU</a>";
 ?>
 </div>
 <br/>
@@ -232,8 +230,8 @@ echo "<a href=\"index.php?page=location&olt=$olt&mac=$mac\">Yandex Maps</a>";
 <?php
 echo "<form method=\"post\" action=\"editlocation_sql.php?olt=$olt&mac=$mac\">";
 ?>
-Координаты: <input id="latlongmet" class="input-medium" name="latlongmet" />
-<input name="add" type="submit" id="add" value="Записать">
+Координати: <input id="latlongmet" class="input-medium" name="latlongmet" />
+<input name="add" type="submit" id="add" value="Запази">
 </div>
 
 

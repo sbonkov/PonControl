@@ -6,24 +6,20 @@ $table = $_GET["olt"];
 } else {
 }
 
-
-
 $ip = str_replace ("_", ".", $table);
 
 include 'get_ro.php';
 include 'get_rw.php';
 include_once 'function_lib.php';
 
-
 $sql_ip = ip2longfixed($ip);
 
-$conn = mysql_connect($mysql_host, $mysql_user, $mysql_pass);
-mysql_query("SET NAMES utf8");
-mysql_select_db($mysql_db);
+$conn = new mysqli($mysql_host, $mysql_user, $mysql_pass, $mysql_db);
+$conn->set_charset("utf8");
+//mysql_select_db($mysql_db);
 UpdateOltLastAct($conn, $sql_ip, $date);
 
 $Array_descr = snmprealwalk($ip, $ro, ".1.3.6.1.4.1.3320.101.10.1.1.26");
-
 
  if(count($Array_descr)>0)
  {
@@ -43,14 +39,10 @@ $nameint = NameIntAddZero(NameById($ip, $ro, $key));
 $mac = MacById($ip, $ro, $key);
 UpdateOnu($conn, $sql_ip, $date, $nameint, $mac, $rx);
 
-
 }
 }
 
 }
-
-
-
 
 header("Location: http://$host$uri/$extra?page=olt&olt=$table");
 ?>

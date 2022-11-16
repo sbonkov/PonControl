@@ -1,17 +1,17 @@
 <?php
 include 'vars.php';
-$conn = mysql_connect($mysql_host, $mysql_user, $mysql_pass);
-mysql_query("SET NAMES utf8");
-mysql_select_db($mysql_db);
+$conn = new mysqli($mysql_host, $mysql_user, $mysql_pass, $mysql_db);
+$conn->set_charset("utf8");
+//mysql_select_db($mysql_db);
 if(! $conn )
 {
-  die('Could not connect: ' . mysql_error());
+  die('Could not connect: ' . mysqli_connect_error());
 }
 $ip_sql = sprintf('%u', ip2long($ip));
 $sql = "SELECT * FROM onus WHERE name LIKE \"EPON0/$sfp%\" AND olt=\"$ip_sql\"";
-$res = mysql_query($sql) or die(mysql_error());
+$res = $conn->query($sql) or die(mysql_error());
 
- while ($row=mysql_fetch_array($res)) {
+ while ($row=$res->fetch_array(MYSQLI_BOTH)) {
 
 $lon = $row['lon'];
 $lat = $row['lat'];

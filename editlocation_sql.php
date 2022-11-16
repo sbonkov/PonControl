@@ -10,11 +10,11 @@ $extra = "index.php?page=onu&olt=$olt&mac=$mac";
 include 'vars.php';
 
 
-$conn = mysql_connect($mysql_host, $mysql_user, $mysql_pass);
-mysql_query("SET NAMES utf8");
+$conn = new mysqli($mysql_host, $mysql_user, $mysql_pass, $mysql_db);
+$conn->set_charset("utf8");
 if(! $conn )
 {
-  die('Could not connect: ' . mysql_error());
+  die('Could not connect: ' . mysqli_connect_error());
 }
 
 if(! get_magic_quotes_gpc() )
@@ -34,14 +34,14 @@ $lon = substr($latlongmet, 8);
 
 $sql = "UPDATE onus ".
        "SET lat=\"$lat\", lon=\"$lon\" WHERE mac=\"$mac\"";
-mysql_select_db($mysql_db);
-$retval = mysql_query( $sql, $conn );
+//mysql_select_db($mysql_db);
+$retval = $conn->query( $sql );
 if(! $retval )
 {
   die('Could not enter data: ' . mysql_error());
 }
 
 header("Location: http://$host$uri/$extra");
-mysql_close($conn);
+$conn->close();
 
 ?>

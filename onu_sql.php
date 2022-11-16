@@ -35,13 +35,13 @@ include 'get_ro.php';
 $date = date('d.m.Y H:i:s');
 $tables = $table."s";
 
-$conn = mysql_connect($mysql_host, $mysql_user, $mysql_pass);
-mysql_query("SET NAMES utf8");
-mysql_select_db($mysql_db);
+$conn = new mysqli($mysql_host, $mysql_user, $mysql_pass, $mysql_db);
+$conn->set_charset("utf8");
+//mysql_select_db($mysql_db);
 
 echo "<font size=\"3\"><table cellspacing=\"0\"><thead>";
-echo "<tr><th style=\"width: 8px; padding: 0px;\"></th><th><a href=\"index.php?page=olt&olt=$ip&sort=name".$sort_sfp."\"></a></th><th><a href=\"index.php?page=olt&olt=$ip&sort=mac".$sort_sfp."\">Интерфейс/MAC ONU</a></th><th><a 
-href=\"index.php?page=olt&olt=$ip&sort=comments".$sort_sfp."\">Описание</a></th><th><a href=\"index.php?page=olt&olt=$ip&sort=pwr".$sort_sfp."\">Бюджет</a></th><th><a href=\"index.php?page=olt&olt=$ip&sort=last_activity".$sort_sfp."\">Посл. активность</a></th><th>Unbind ONU</th></tr></thead>";
+echo "<tr><th style=\"width: 8px; padding: 0px;\"></th><th><a href=\"index.php?page=olt&olt=$ip&sort=name".$sort_sfp."\"></a></th><th><a href=\"index.php?page=olt&olt=$ip&sort=mac".$sort_sfp."\">ПОРТ/ONU MAC</a></th><th><a 
+href=\"index.php?page=olt&olt=$ip&sort=comments".$sort_sfp."\">Описание</a></th><th><a href=\"index.php?page=olt&olt=$ip&sort=pwr".$sort_sfp."\">НИВА</a></th><th><a href=\"index.php?page=olt&olt=$ip&sort=last_activity".$sort_sfp."\">Последна активност</a></th><th>Премахни ONU от OLT</th><th>Изтрий ONU</th></tr></thead>";
 
 
 if ($sort == "pwr") {
@@ -52,13 +52,12 @@ $ip_sql = sprintf('%u', ip2long($ip));
 
 
 $sql = "select * from onus WHERE olt=\"$sql_ip\" AND name LIKE \"EPON0/$sfp%\" $search_sql ORDER BY $sort";
-$retval = mysql_query( $sql, $conn );
+$retval = $conn->query( $sql );
 if(! $retval )
 {
-  die('Could not enter data: ' . mysql_error());
+  die('Could not enter data: ' . mysqli_connect_error());
 }
-while ($row=mysql_fetch_array($retval)) {
-
+while ($row=$retval->fetch_array(MYSQLI_BOTH)) {
 
 $nameint = $row['name'];
 $mac = $row['mac'];
@@ -90,21 +89,34 @@ $lat = 0;
 $nameint = NameIntDelZero($nameint);
 
 if ($pwr == "Offline" or $ping == 0) {
+// Цвят при offline
 $color="red";
 $cell_color = "#FF0000";
-} else {
+} 
+elseif ($pwr <= -26) {
+//  $lable="Слаб сигнал!!!";
+$cell_color = "#FFCA33";
+$color="#000000";
+}
+elseif ($pwr >= -9) {
+//  $lable="Силен сигнал!!!";
+$cell_color = "#33FFE9";
+$color="#000000";
+}
+else {
+//Вси4ко е точно.
 $cell_color = "#66FF11";
-$color="#333333";
+$color="#000000";
 }
 
 echo "<tr class=\"container\" onclick=\"document.location = '?page=onu&olt=$ip&mac=$mac';\">";
 echo "<td style=\"width: 8px; padding: 0px; background: $cell_color;\"></td>";
 echo "<td class=\"container\" style=\"white-space:nowrap; width: 5px; margin: 0px; padding: 0px;\">";
 if ($lat == 0) {
-echo "<img width=\"16\" src=\"images/marker_red.png\" title=\"Not placed on map\">";
+echo "<img width=\"16\" src=\"images/marker_red.png\" title=\"Не е отбелязано на картата\">";
 }
 else {
-echo "<img width=\"16\" src=\"images/marker_green.png\" title=\"Placed on map\">";
+echo "<img width=\"16\" src=\"images/marker_green.png\" title=\"Отбелязано е на картата\">";
 }
 echo "</td><td><div align=\"left\"><font size=\"2\"><b>$nameint</b></font><br/>$mac</div></td><td class=\"abon_name\">$comments</td>";
 
@@ -121,10 +133,11 @@ $epon_sfp = explode(':', $epon_sfp);
 $epon_sfp = $epon_sfp[0];
 
 
-echo "<td style=\"width: 12px; padding:0px;\"><a href=\"index.php?page=unbind_onu&ip=$ip&mac=$mac&sfp=$epon_sfp\"  onclick=\"return confirm('Отвязать ONU от OLT? ONU будет оставаться в списке этого OLT пока не будет заново обнаружена на любом изестном 
-OLTе')\">X</a></td></tr>";
+echo "<td style=\"width: 12px; padding:0px;\"><a href=\"index.php?page=unbind_onu&ip=$ip&mac=$mac&sfp=$epon_sfp\"  onclick=\"return confirm('Изтриване на ONU от OLT? ONU-то може да остане в списъка докато не бъде инсталирано повторно. Тази опция отнема няколко минути!!! ')\">X</a></td>";
+//}
+//test za iztrivane na ONU ot bazata
+echo "<td style=\"width: 12px; padding:0px;\"><a href=\"index.php?page=delete_onu&ip=$ip&mac=$mac&sfp=$epon_sfp\"  onclick=\"return confirm('Изтриване на ONU от Базата Данни? Моля преди да го изтриете от базата премахнете го от -- Премахни ONU от OLT -- ')\">X</a></td></tr>";
+
 }
-
-
 ?>
 </table>

@@ -1,4 +1,4 @@
+AuthName "Restricted Access"
+AuthUserFile /usr/home/spider/secure/apasswords
 AuthType Basic
-AuthName "My Protected Area"
-AuthUserFile /var/www/html/.htpasswd
 Require valid-user

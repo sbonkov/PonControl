@@ -342,7 +342,7 @@ em {
 	line-height: 20px;
 	list-style: none;
 	display: block;
-	background: transparent url(style/images/bullet.jpg) no-repeat left 8px;
+	background: transparent url(style/images/blue.png) no-repeat left 8px;
 	padding-left: 20px;
 }
 #wrapper ul.check-list {
@@ -1191,7 +1191,7 @@ font-weight: bold;
 #nav ul li{
 	padding-top:1px; /* Вводим отступ между li чтобы создать иллюзию разделенных пунктов меню */
 	float:none;
-	background:url(dot.gif);
+	background:url(style/images/dot.gif);
 }
 #nav ul a{
 	white-space:nowrap; /* Останавливаем перенос текста и создаем многострочный выпадающий пункт */
@@ -1238,3 +1238,39 @@ overflow: visible;
 
 }
 
+/* Style za formata za tyrsene */
+input{
+    border: none;
+    padding: 10px;
+    margin: 10px;
+    height: 20px;
+    width: 500px;
+    border:1px solid #eaeaea;
+    outline:none;
+}
+input:hover{
+    border-color: #a0a0a0 #b9b9b9 #b9b9b9 #b9b9b9;
+}
+input:focus{
+    border-color:#c3c6c9;
+}
+
+input[type="submit"] {
+    border-radius: 2px;
+    background: #f2f2f2;
+    border: 1px solid #f2f2f2;
+    color: #757575;
+    cursor: default;
+    font-size: 14px;
+    font-weight: bold;
+    width: 100px;
+    padding: 0 16px;
+    height:36px;
+}
+input[type="submit"]:hover {
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    background: #f8f8f8;
+    border: 1px solid #c6c6c6;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    color: #222;
+}

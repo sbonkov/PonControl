@@ -53,7 +53,7 @@ else {
 include 'map.php';
 }
 ?>
-<title>Pon Control</title>
+<title>Delta Pon</title>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="style.css" media="all" />
 <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
@@ -102,7 +102,7 @@ include 'map.php';
       <div id="footer-content">
         <!-- Begin Copyright -->
         <div id="copyright">
-          <p>dan_aspire 2013-2015</p>
+          <p><br></p>
         </div>
         <!-- End Copyright -->
       </div>

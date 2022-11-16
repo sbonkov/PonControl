@@ -84,7 +84,7 @@ map.behaviors.enable('scrollZoom');
 
 </script>
 
-<script src="http://api-maps.yandex.ru/2.0.7/?ns=ym&load=package.full&lang=ru-RU"></script>
+<script src="http://api-maps.yandex.ru/2.0.7/?ns=ym&load=package.full&lang=en-US"></script>
 
 
 

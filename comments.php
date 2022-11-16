@@ -8,7 +8,7 @@ $ip_sql = sprintf('%u', ip2long($ip));
 &nbsp;<input name="add" type="submit" id="add" value="OK" style="width:50px;">
 <br/>
 <br/>
-<button name="del" type="button" id="del" style="width:140px; "   onclick="window.location='reset_comments.php?olt=<?php echo $ip; ?>&mac=<?php echo $mac; ?>';" />Удалить описание</button>
+<button name="del" type="button" id="del" style="width:140px; "   onclick="window.location='reset_comments.php?olt=<?php echo $ip; ?>&mac=<?php echo $mac; ?>';" />Изтрий Описание</button>
 
 </form>
 </font>

@@ -1,14 +1,12 @@
 <?php
 include 'vars.php';
 $extra = 'index.php';
-
 $ip = $_GET["olt"];
 $ip_new = $_POST["ip"];
 $ro = $_POST["ro"];
 $rw = $_POST["rw"];
 $place = $_POST["place"];
 $numsfp = $_POST["numsfp"];
-
 
 if ($ro == NULL) {
 $ro = "public";
@@ -43,30 +41,30 @@ echo "wrong ip";
 $ip_sql = sprintf('%u', ip2long($ip));
 $ip_sql_new = sprintf('%u', ip2long($ip_new));
 
-$conn = mysql_connect($mysql_host, $mysql_user, $mysql_pass);
-mysql_query("SET NAMES utf8");
-mysql_select_db($mysql_db);
+$conn = new mysqli($mysql_host, $mysql_user, $mysql_pass, $mysql_db);
+$conn->set_charset("utf8");
+//mysql_select_db($mysql_db);
 
 
 
 $sql = "UPDATE olts SET ip='$ip_sql_new', place='$place', ro='$ro', rw='$rw', numsfp='$numsfp' WHERE ip='$ip_sql'";
-$retval = mysql_query( $sql, $conn );
+$retval = $conn->query( $sql );
 if(! $retval )
 {
-  die('Could not enter data: ' . mysql_error());
+  die('Could not enter data: ' . mysqli_connect_error());
 }
 
 
 $sql = "UPDATE onus SET olt='$ip_sql_new' WHERE olt='$ip_sql'";
-$retval = mysql_query( $sql, $conn );
+$retval = $conn->query( $sql );
 if(! $retval )
 {
-  die('Could not enter data: ' . mysql_error());
+  die('Could not enter data: ' . mysqli_connect_error());
 }
 
 
 
-mysql_close($conn);
+$conn->close();
 header("Location: http://$host$uri/$extra?page=olt&olt=$ip_new");
 }
 ?>

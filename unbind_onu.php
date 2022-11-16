@@ -6,9 +6,9 @@ $sfp = $_GET["sfp"];
 include 'get_rw.php';
 
 if ($mac == NULL) {
-echo "Ошибка: не указан MAC ONU";
+echo "Грешка: не е указан MAC ONU";
 } else if ($sfp == NULL) {
-echo "Ошибка: не указан № интерфейса";
+echo "Грешка: не е указан № на интерфейса";
 } else {
 
 include 'make_bdcom_mac.php';

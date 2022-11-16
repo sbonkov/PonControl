@@ -1,5 +1,47 @@
 <?php
+//new START
+// ---------- Get CATVrxPower DBm () ----------
 
+function GetCATVrxPower($ip, $ro, $iface, $port) {
+$catv_rxPower = snmp2_get($ip, $ro, "1.3.6.1.4.1.3320.101.10.31.1.2.$iface.$port");
+$catv_rxPower = end(explode('INTEGER: ', $catv_rxPower));
+return $catv_rxPower;
+}
+
+// END ----------
+
+// ---------- Get CATVRF status () ----------
+
+function GetCATVAdminStatus($ip, $ro, $iface, $port) {
+$catv_status = snmp2_get($ip, $ro, "1.3.6.1.4.1.3320.101.10.30.1.2.$iface.$port");
+$catv_status = end(explode('INTEGER: ', $catv_status));
+return $catv_status;
+}
+
+// END ----------
+
+// ---------- Get CATVRF Port num () ----------
+
+function GetNumCATVRFPorts($ip, $ro, $iface, $port) {
+$catv_rfports = snmp2_get($ip, $ro, "1.3.6.1.4.1.3320.101.10.3.1.15.$iface");
+$catv_rfports = end(explode('INTEGER: ', $catv_rfports));
+return $catv_rfports;
+}
+
+// END ----------
+
+
+// ---------- Get Port Mode (trunk, access, etc.) ----------
+
+function GetPortMode($ip, $ro, $iface, $port) {
+$port_mode = snmp2_get($ip, $ro, "1.3.6.1.4.1.3320.101.12.1.1.18.$iface.$port");
+$port_mode = end(explode('INTEGER: ', $port_mode));
+return $port_mode;
+}
+
+// END ----------
+
+//new END
 
 // ---------- Correct function ip2long for work on 32bit systems
 
@@ -9,21 +51,6 @@ return $sql_ip;
 }
 
 // END ----------
-
-
-
-// ---------- Get FDB By SNMP
-function GetFdb ($ip, $ro, $iface) {
-$session =  new SNMP(SNMP::VERSION_1, $ip, $ro);
-$session->oid_increasing_check = FALSE;
-$session->oid_output_format = SNMP_OID_OUTPUT_NUMERIC;
-$fdb = $session->walk("1.3.6.1.4.1.3320.152.1.1.3.$iface");
-$session->close();
-return $fdb;
-}
-
-// END ----------
-
 
 
 
@@ -62,26 +89,6 @@ return $num_ports;
 function OnuCopperPortState($ip, $ro, $iface, $port) {
 $port_state = snmp2_get($ip, $ro, "1.3.6.1.4.1.3320.101.12.1.1.7.$iface.$port");
 $port_state = end(explode('INTEGER: ', $port_state));
-// 1 - Enabled, 2 - Disabled
-return $port_state;
-}
-
-// END ----------
-
-
-//----------Set Copper port state on ONU DOWN-------
-function OnuCopperPortStateDown($ip, $rw, $iface, $port) {
-$port_state_down = snmp2_set($ip, $rw, "1.3.6.1.4.1.3320.101.12.1.1.7.$iface.$port", i, "2");
-//$port_state_down = end(explode('INTEGER: ', $port_state));
-// 1 - Enabled, 2 - Disabled
-return $port_state;
-}
-// END ----------
-
-//----------Set Copper port state on ONU UP---------testestest
-function OnuCopperPortStateUp($ip, $rw, $iface, $port) {
-$port_state_up = snmp2_set($ip, $rw, "1.3.6.1.4.1.3320.101.12.1.1.7.$iface.$port", i, "1");
-//$port_state_up = end(explode('INTEGER: ', $port_state));
 // 1 - Enabled, 2 - Disabled
 return $port_state;
 }
@@ -254,10 +261,10 @@ return $nameint;
 // ---------- MYSQL update last activity of OLT ----------
 function UpdateOltLastAct($conn, $sql_ip, $date) {
 $sql = "UPDATE olts SET last_act='$date' WHERE ip='$sql_ip'";
-$retval = mysql_query( $sql, $conn );
+$retval = $conn->query( $sql );
 if(! $retval )
 {
-  die('Could not enter data: ' . mysql_error());
+  die('Could not enter data: ' . mysqli_connect_error());
 }
 }
 
@@ -272,7 +279,7 @@ function UpdateOnu($conn, $sql_ip, $date, $nameint, $mac, $rx) {
 
 
 $sql = "INSERT INTO onus (olt,name,mac,pwr) VALUES ('$sql_ip','$nameint','$mac','$rx') ON DUPLICATE KEY UPDATE name=VALUES(name), olt=VALUES(olt),pwr=VALUES(pwr)";
-$retval = mysql_query( $sql, $conn );
+$retval = $conn->query( $sql );
 if(! $retval )
 {
 }
@@ -284,10 +291,10 @@ $rx = 0;
 
 
 $sql = "UPDATE onus SET olt='$sql_ip',last_pwr='$rx',last_activity='$date' WHERE mac='$mac'";
-$retval = mysql_query( $sql, $conn );
+$retval = $conn->query( $sql );
 if(! $retval )
 {
-  die('Could not enter data: ' . mysql_error());
+  die('Could not enter data: ' . mysqli_connect_error());
 }
 
 }
@@ -295,10 +302,10 @@ if(! $retval )
 
 
 $sql = "INSERT INTO onus_s (olt,mac,pwr,datetime) VALUES ('$sql_ip','$mac','$rx','$date')";
-$retval = mysql_query( $sql, $conn );
+$retval = $conn->query( $sql );
 if(! $retval )
 {
-  die('Could not enter data: ' . mysql_error());
+  die('Could not enter data: ' . mysqli_connect_error());
 }
 
 

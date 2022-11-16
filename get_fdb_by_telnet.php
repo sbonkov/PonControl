@@ -21,8 +21,9 @@
     sleep(1);
 }
 
-#    fwrite($con, "show mac a int $nameint \r\n");
-    fwrite($con, "show epon interface $nameint onu mac address-table \r\n");
+//За Build 58197﻿﻿﻿ появились команды   access-list  access-group 
+//    fwrite($con, "show mac a﻿ddress-tabl﻿e int $nameint \r\n");
+    fwrite($con, "show mac address-table int $nameint \r\n");
     sleep(2);
 $out = fread($con, 16536);
 $out = end(explode(' -----', $out));
@@ -45,7 +46,7 @@ $out_mac = explode('DYN', $out_mac);
 $out_mac = $out_mac[0];
 $out_mac = ltrim($out_mac, "0..9");
 $out_mac = trim($out_mac);
-$out_mac = substr($out_mac, -21);
+$out_mac = substr($out_mac, -14);
 $us_mac = str_replace(".", "", "$out_mac");
 $us_mac = str_replace("a", "A", "$us_mac");
 $us_mac = str_replace("b", "B", "$us_mac");
@@ -74,7 +75,7 @@ echo $us_mac_out;
 echo "</td><td>";
 
 if ($us_mac_type == 1) {
-echo "<a href=\"fix_onu.php?olt=$ip&mac=$mac&code=$us_usercode\">Закрепить</a>";
+echo "<a href=\"fix_onu.php?olt=$ip&mac=$mac&code=$us_usercode\">Прикачи</a>";
 }
 else {
 }

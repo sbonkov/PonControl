@@ -1,6 +1,5 @@
 <?php
 
-
 $host  = $_SERVER['HTTP_HOST'];
 $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 $extra = 'index.php';
@@ -13,11 +12,10 @@ $page = "olt_list";
 } else {
 }
 ?>
-
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Pon Control</title>
+<title>Delta Pon</title>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="style.css" media="all" />
 <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
@@ -38,7 +36,7 @@ $page = "olt_list";
           <div id="smoothmenu1" class="ddsmoothmenu">
             <ul>
 					<li><a href="<?php echo $left_href3; ?>"><?php echo $left_href_txt3; ?></a></li>
-                                        <li><a href="<?php echo $left_href; ?>"><?php echo $left_href_txt; ?></a></li>
+                                       <li><a href="<?php echo $left_href; ?>"><?php echo $left_href_txt; ?></a></li>
                                         <li><a href="<?php echo $left_href2; ?>"><?php echo $left_href_txt2; ?></a></li>
                 </ul>
           </div>
@@ -65,7 +63,7 @@ $page = "olt_list";
       <div id="footer-content">
         <!-- Begin Copyright -->
         <div id="copyright">
-          <p>dan_aspire 2013-2015</p>
+          <p><br></p>
         </div>
         <!-- End Copyright -->
       </div>
