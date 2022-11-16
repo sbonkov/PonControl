@@ -5,6 +5,10 @@ Pon Control
 
 
 Modified to work with php 7.4
+
 Partially translated into Bulgarian.
+
 Added option to view onu tv port.
+
 Added option to delete onu from OLT and database. 
+
