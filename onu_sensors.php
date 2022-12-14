@@ -24,13 +24,14 @@ $retval = $conn->query($sql);
 $row = $retval->fetch_array(MYSQLI_BOTH);
 //OLT IP
 $olt = $_GET["olt"];
+$place = $row['place'];
 $conn->close();
 echo "<br/><br/><br/>";
 echo "<div style=\"float: left; display: table-cell; vertical-align: middle; top: 50%;\">";
 echo "<b>";
 $ipaddr=long2ip($row['ip']);
 //echo "OLT IP: <a href=\"http://$ipaddr\" target=\"_blank\">$ipaddr</a>";
-echo "OLT IP: <a href=\"http://$olt\" target=\"_blank\">$olt</a>";
+echo "OLT: <a href=\"http://$olt\" target=\"_blank\">$place</a>";
 echo "<br>";
 echo "<br>";
 #echo "<a href=\"?page=onu&olt=$ip&mac=$mac\">$nameint</a>";

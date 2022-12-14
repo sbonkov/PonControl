@@ -53,7 +53,7 @@ else {
 include 'map.php';
 }
 ?>
-<title>Delta Pon</title>
+<title>Pon</title>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="style.css" media="all" />
 <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
