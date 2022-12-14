@@ -3,7 +3,7 @@ $pvid = GetPVID($ip, $ro, $iface, $port);
 if ($pvid == NULL) {
 } else {
 if ($pvid == 1) {
-$pvid = "default";
+$pvid = "trunk";
 } else {
 }
 if ($edit == $vlan_edit) {

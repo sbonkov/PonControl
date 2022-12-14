@@ -25,6 +25,8 @@ $row = $retval->fetch_array(MYSQLI_BOTH);
 //OLT IP
 $olt = $_GET["olt"];
 $place = $row['place'];
+$vendor_id = GetVendorID($ip, $ro, $iface);
+$model_id = GetModelID($ip, $ro, $iface);
 $conn->close();
 echo "<br/><br/><br/>";
 echo "<div style=\"float: left; display: table-cell; vertical-align: middle; top: 50%;\">";
@@ -39,7 +41,12 @@ echo $nameint;
 echo "</b><br/>";
 echo "<b>";
 #echo "<a href=\"".$search_string.$mac."\" target=\"_blank\">";
-echo $mac;
+echo "MAK: $mac";
+echo "<br>";
+echo "Производител: $vendor_id";
+echo "<br>";
+echo "Модел: $model_id";
+echo "<br>";
 echo "</a>";
 echo "</b><br/>";
 if ($rx == "Offline") {

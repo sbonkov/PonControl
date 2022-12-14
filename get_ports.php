@@ -13,7 +13,6 @@ $catv_status = GetCATVAdminStatus($ip, $ro, $iface, $port);
 echo "<div class=\"vlans\">";
 echo "<div style=\"white-space: nowrap; float: left; position: relative; width: 40px; text-align: center; \">";
 echo $port;
-//echo $port_mode;
 echo "</div>";
 echo "<div style=\"white-space: nowrap; float: left; vertical-align: middle; tpo: 50%; position: relative; margin: 0px; padding: 0px; overflow: hidden; display: table-cell; height: 50px; line-height: 50px;\">";
 if ($port_state == 2) {

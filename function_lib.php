@@ -39,6 +39,23 @@ $port_mode = end(explode('INTEGER: ', $port_mode));
 return $port_mode;
 }
 
+// ---------- Get ONU Vendor ID (BDCM, CDT etc.) ----------
+
+function GetVendorID($ip, $ro, $iface) {
+$vendor_id = snmp2_get($ip, $ro, "1.3.6.1.4.1.3320.101.10.1.1.1.$iface");
+$vendor_id = end(explode('INTEGER: ', $vendor_id));
+return $vendor_id;
+}
+
+// ---------- Get ONU Model ID () ----------
+
+function GetModelID($ip, $ro, $iface) {
+$model_id = snmp2_get($ip, $ro, "1.3.6.1.4.1.3320.101.10.1.1.2.$iface");
+$model_id = end(explode('STRING: ', $model_id));
+return $model_id;
+}
+
+
 // END ----------
 
 //new END
