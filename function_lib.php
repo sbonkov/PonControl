@@ -1,5 +1,14 @@
 <?php
 //new START
+
+// ---------- secconds to date time () ----------
+function secondsToTime($seconds) {
+    $dtF = new \DateTime('@0');
+    $dtT = new \DateTime("@$seconds");
+    return $dtF->diff($dtT)->format('%a days, %h hours, %i minutes and %s seconds');
+}
+
+
 // ---------- Get CATVrxPower DBm () ----------
 
 function GetCATVrxPower($ip, $ro, $iface, $port) {
@@ -55,6 +64,13 @@ $model_id = end(explode('STRING: ', $model_id));
 return $model_id;
 }
 
+// ---------- Get onu alive time (onu online time) ----------
+
+function GetOnuAliveTime($ip, $ro, $iface) {
+$onu_alivetime = snmp2_get($ip, $ro, "1.3.6.1.4.1.3320.101.10.1.1.80.$iface");
+$onu_alivetime = end(explode('INTEGER: ', $onu_alivetime));
+return $onu_alivetime;
+}
 
 // END ----------
 

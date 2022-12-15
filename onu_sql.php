@@ -3,18 +3,15 @@ include 'ping.php';
 include 'vars.php';
 $extra = 'index.php';
 include_once 'function_lib.php';
-
 if ($table == NULL) {
 $table = $_GET["olt"];
 } else {
 }
-
 $sort = $_GET["sort"];
 if ($sort == NULL) {
 $sort = "name";
 } else {
 }
-
 $sfp = $_GET["sfp"];
  if ($sfp == NULL) {
 $sort_sfp == NULL;
@@ -41,7 +38,7 @@ $conn->set_charset("utf8");
 
 echo "<font size=\"3\"><table cellspacing=\"0\"><thead>";
 echo "<tr><th style=\"width: 8px; padding: 0px;\"></th><th><a href=\"index.php?page=olt&olt=$ip&sort=name".$sort_sfp."\"></a></th><th><a href=\"index.php?page=olt&olt=$ip&sort=mac".$sort_sfp."\">ПОРТ/ONU MAC</a></th><th><a 
-href=\"index.php?page=olt&olt=$ip&sort=comments".$sort_sfp."\">Описание</a></th><th><a href=\"index.php?page=olt&olt=$ip&sort=pwr".$sort_sfp."\">НИВА</a></th><th><a href=\"index.php?page=olt&olt=$ip&sort=last_activity".$sort_sfp."\">Последна активност</a></th><th>Премахни ONU от OLT</th><th>Изтрий ONU</th></tr></thead>";
+href=\"index.php?page=olt&olt=$ip&sort=comments".$sort_sfp."\">Описание</a></th><th><a href=\"index.php?page=olt&olt=$ip&sort=pwr".$sort_sfp."\">НИВА</a></th><th><a href=\"index.php?page=olt&olt=$ip&sort=last_activity".$sort_sfp."\">Последна активност</a></th><th>Премахни ONU от OLT </th><th>Изтрий ONU</th></tr></thead>";
 
 
 if ($sort == "pwr") {
@@ -74,7 +71,6 @@ include 'make_comments_by_us.php';
 } else {
 $comments = $row['comments'];
 }
-
 
 $pwr = $row['pwr'];
 $last_pwr = $row['last_pwr'];
@@ -110,7 +106,7 @@ $color="#000000";
 }
 
 echo "<tr class=\"container\" onclick=\"document.location = '?page=onu&olt=$ip&mac=$mac';\">";
-echo "<td style=\"width: 8px; padding: 0px; background: $cell_color;\"></td>";
+echo "<td style=\"background: $cell_color;\"></td>";
 echo "<td class=\"container\" style=\"white-space:nowrap; width: 5px; margin: 0px; padding: 0px;\">";
 if ($lat == 0) {
 echo "<img width=\"16\" src=\"images/marker_red.png\" title=\"Не е отбелязано на картата\">";
@@ -128,16 +124,14 @@ echo $pwr;
 echo "</td><td style=\"padding:0px;\"></td>";
 }
 
+
 $epon_sfp = end(explode('/', $nameint));
 $epon_sfp = explode(':', $epon_sfp);
 $epon_sfp = $epon_sfp[0];
-
-
-echo "<td style=\"width: 12px; padding:0px;\"><a href=\"index.php?page=unbind_onu&ip=$ip&mac=$mac&sfp=$epon_sfp\"  onclick=\"return confirm('Изтриване на ONU от OLT? ONU-то може да остане в списъка докато не бъде инсталирано повторно. Тази опция отнема няколко минути!!! ')\">X</a></td>";
-//}
-//test za iztrivane na ONU ot bazata
-echo "<td style=\"width: 12px; padding:0px;\"><a href=\"index.php?page=delete_onu&ip=$ip&mac=$mac&sfp=$epon_sfp\"  onclick=\"return confirm('Изтриване на ONU от Базата Данни? Моля преди да го изтриете от базата премахнете го от -- Премахни ONU от OLT -- ')\">X</a></td></tr>";
-
+// delete onu from olt
+echo "<td><a href=\"index.php?page=unbind_onu&ip=$ip&mac=$mac&sfp=$epon_sfp\"  onclick=\"return confirm('Изтриване на ONU от OLT? ONU-то може да остане в списъка докато не бъде инсталирано повторно. Тази опция отнема няколко минути!!! ')\">X</a></td>";
+//delete onu from database
+echo "<td><a href=\"index.php?page=delete_onu&ip=$ip&mac=$mac&sfp=$epon_sfp\"  onclick=\"return confirm('Изтриване на ONU от Базата Данни? Моля преди да го изтриете от базата премахнете го от -- Премахни ONU от OLT -- ')\">X</a></td></tr>";
 }
 ?>
 </table>
