@@ -7,8 +7,12 @@ Modified to work with php 7.4
 Partially translated into Bulgarian, but you can easily translate it into the language you want.
 
 Added option to view onu tv port , port status and rf power.
+
 Added online time of onu to his page.
+
 Added onu Vendor ID and Model ID.
+
 On the onu page it shows the name of the olt instead of its ip address.
+
 Added option to delete onu from OLT and database. 
 
