@@ -1,7 +1,7 @@
 <?php
 //Stoyan START
 
-// ---------- secconds to date time () ----------
+// ---------- For onu online time- secconds to date time () ----------
 function secondsToTime($seconds) {
     $dtF = new \DateTime('@0');
     $dtT = new \DateTime("@$seconds");
