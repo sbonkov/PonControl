@@ -1,21 +1,22 @@
 <?php
-//new START
+//Stoyan START
 
 // ---------- secconds to date time () ----------
 function secondsToTime($seconds) {
     $dtF = new \DateTime('@0');
     $dtT = new \DateTime("@$seconds");
-    return $dtF->diff($dtT)->format('%a days, %h hours, %i minutes and %s seconds');
+    return $dtF->diff($dtT)->format('%a дена, %h часа, %i минути');
 }
 
 
 // ---------- Get CATVrxPower DBm () ----------
 
-function GetCATVrxPower($ip, $ro, $iface, $port) {
-$catv_rxPower = snmp2_get($ip, $ro, "1.3.6.1.4.1.3320.101.10.31.1.2.$iface.$port");
+function GetCATVrxPower($ip, $ro, $iface) {
+$catv_rxPower = snmp2_get($ip, $ro, ".1.3.6.1.4.1.3320.101.10.31.1.2.$iface");
 $catv_rxPower = end(explode('INTEGER: ', $catv_rxPower));
 return $catv_rxPower;
 }
+
 
 // END ----------
 
@@ -52,7 +53,7 @@ return $port_mode;
 
 function GetVendorID($ip, $ro, $iface) {
 $vendor_id = snmp2_get($ip, $ro, "1.3.6.1.4.1.3320.101.10.1.1.1.$iface");
-$vendor_id = end(explode('INTEGER: ', $vendor_id));
+$vendor_id = end(explode('STRING: ', $vendor_id));
 return $vendor_id;
 }
 
@@ -72,9 +73,10 @@ $onu_alivetime = end(explode('INTEGER: ', $onu_alivetime));
 return $onu_alivetime;
 }
 
+
 // END ----------
 
-//new END
+//Stoyan END
 
 // ---------- Correct function ip2long for work on 32bit systems
 
@@ -122,6 +124,26 @@ return $num_ports;
 function OnuCopperPortState($ip, $ro, $iface, $port) {
 $port_state = snmp2_get($ip, $ro, "1.3.6.1.4.1.3320.101.12.1.1.7.$iface.$port");
 $port_state = end(explode('INTEGER: ', $port_state));
+// 1 - Enabled, 2 - Disabled
+return $port_state;
+}
+
+// END ----------
+
+
+//----------Set Copper port state on ONU DOWN-------
+function OnuCopperPortStateDown($ip, $rw, $iface, $port) {
+$port_state_down = snmp2_set($ip, $rw, "1.3.6.1.4.1.3320.101.12.1.1.7.$iface.$port", i, "2");
+//$port_state_down = end(explode('INTEGER: ', $port_state));
+// 1 - Enabled, 2 - Disabled
+return $port_state;
+}
+// END ----------
+
+//----------Set Copper port state on ONU UP---------testestest
+function OnuCopperPortStateUp($ip, $rw, $iface, $port) {
+$port_state_up = snmp2_set($ip, $rw, "1.3.6.1.4.1.3320.101.12.1.1.7.$iface.$port", i, "1");
+//$port_state_up = end(explode('INTEGER: ', $port_state));
 // 1 - Enabled, 2 - Disabled
 return $port_state;
 }
