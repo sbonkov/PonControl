@@ -1,7 +1,8 @@
 <?php
 $conn = new mysqli($mysql_host, $mysql_user, $mysql_pass, $mysql_db);
-$conn->query("utf8");
-//mysql_select_db($mysql_db);
+//fixed to work with php8.1
+//$conn->query("utf8");
+$conn->set_charset("utf8");
 $sql = "select * from onus WHERE mac='$mac'";
 $retval = $conn->query( $sql );
 if(! $retval )
