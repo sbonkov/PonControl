@@ -51,7 +51,7 @@ include 'make_bdcom_mac.php';
 fclose($con);
 
 //Write
-snmp2_set($ip, $rw, "1.3.6.1.4.1.3320.20.15.1.1.0", i, "1");
+snmp2_set($ip, $rw, "1.3.6.1.4.1.3320.20.15.1.1.0", 'i', "1");
 
 header("Location: http://$host$uri/$extra?page=olt&olt=$ip");
 
