@@ -1,9 +1,8 @@
 <div align="center">
 <?php
-	$username = "$telnet_user";
-	$password = "$telnet_pass";
+    $username = "$telnet_user";
+    $password = "$telnet_pass";
     $con = pfsockopen($ip, 23, $errno, $errstr, 10);
-
     $login = $username."\r\n";
     fwrite($con, $login);
     $pass = $password."\r\n";
@@ -11,8 +10,7 @@
     $command = "enable\r\n";
     sleep(1);
     fwrite($con, $command);
-
-
+  $enable_pass = $_GET["enable_pass"] ?? null;
   if ($enable_pass == NULL) {
 } else {
     $enable_password = "$enable_pass";
@@ -20,13 +18,14 @@
     fwrite($con, $en_pass);
     sleep(1);
 }
-
 //За Build 58197﻿﻿﻿ появились команды   access-list  access-group 
 //    fwrite($con, "show mac a﻿ddress-tabl﻿e int $nameint \r\n");
     fwrite($con, "show mac address-table int $nameint \r\n");
     sleep(2);
 $out = fread($con, 16536);
-$out = end(explode(' -----', $out));
+//$out = end(explode(' -----', $out));
+$tmp = explode(' -----', $out);
+$out = end($tmp);
 $arr_out = explode("\n", $out);
 while (trim(array_pop($arr_out)) == "--More--") {
  fwrite($con, chr(32));
@@ -34,14 +33,11 @@ while (trim(array_pop($arr_out)) == "--More--") {
 $arr_tmp = explode("\r\n", fread($con, 16536));
 $arr_out = array_merge($arr_out,$arr_tmp);
 }
-
-
 fclose($con);
 $count = 0;
 echo "<table border=\"0\" cellspacing=\"5\">";
 while ($count <= count($arr_out)) {
-$out_mac = $arr_out[$count];
-
+$out_mac = $arr_out[$count] ?? null;
 $out_mac = explode('DYN', $out_mac);
 $out_mac = $out_mac[0];
 $out_mac = ltrim($out_mac, "0..9");
@@ -57,9 +53,7 @@ $us_mac = str_replace("f", "F", "$us_mac");
 if ($us_mac == NULL) {
 } else {
 echo "<tr><td><div style=\"display: table-cell; vertical-align: middle; \">";
-
 $us_formatted_mac = preg_replace('~..(?!$)~', '\0:', $us_mac);
-
 echo $us_formatted_mac;
 echo "</div></td><td>";
 if ($us_mac == NULL) {
@@ -73,13 +67,11 @@ echo "<td></td>";
 include 'get_us_mac_data.php';
 echo $us_mac_out;
 echo "</td><td>";
-
 if ($us_mac_type == 1) {
 echo "<a href=\"fix_onu.php?olt=$ip&mac=$mac&code=$us_usercode\">Прикачи</a>";
 }
 else {
 }
-
 
 } else {
 }
