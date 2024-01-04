@@ -1,16 +1,14 @@
 <?php
-
-
 $host  = $_SERVER['HTTP_HOST'];
 $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 $extra = 'index.php';
 include 'vars.php';
-$fdb = $_GET["fdb"];
+$fdb = $_GET["fdb"] ?? null;
 $ip = $_GET["olt"];
-$maptype = $_GET["maptype"];
-$count = $_GET["count"];
-$include = $_GET["show"];
-$edit = $_GET["edit"];
+$maptype = $_GET["maptype"] ?? null;
+$count = $_GET["count"] ?? null;
+$include = $_GET["show"] ?? null;
+$edit = $_GET["edit"] ?? null;
 if ($include == NULL) {
 } else {
 $include = $include.".php";
@@ -18,14 +16,11 @@ $include = $include.".php";
 $mac = $_GET["mac"];
 include 'get_ro.php';
 include 'get_rw.php';
-
 include_once 'function_lib.php';
-
 $iface = IfaceByMac($ip, $ro, $mac);
 $rx = RxById($ip, $ro, $iface);
 $nameint = NameIntDelZero(NameById($ip, $ro, $iface));
 $dist = DistById($ip, $ro, $iface);
-
 if ($use_userside == "yes") {
 include 'get_code_by_id.php';
 if ($code == NULL) {
@@ -37,11 +32,8 @@ include 'make_comments_by_us.php';
 } else {
 include 'get_comments_by_id.php';
 }
-
 include 'get_coords_by_id.php';
 $pwr = $rx;
-
-
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -53,12 +45,11 @@ else {
 include 'map.php';
 }
 ?>
-<title>Pon</title>
+<title>Delta Pon</title>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="style.css" media="all" />
 <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
 <!--[if IE 7]><link rel="stylesheet" type="text/css" href="style/css/ie7.css" media="all" /><![endif]-->
-
 </head>
 <body>
 <div id="contain">
@@ -88,9 +79,7 @@ include 'map.php';
   <!-- Begin Wrapper -->
   <div id="wrapper">
   <div id="container">
-
 <?php include "$page.php"; ?>
-
   </div>
   </div>
   <!-- End Wrapper -->
