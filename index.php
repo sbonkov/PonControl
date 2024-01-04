@@ -1,5 +1,5 @@
 <?php
-$page = $_GET["page"];
+$page = $_GET["page"] ?? null;
 if ($page == "onu" or $page == "onu2") {
 include 'main2.php';
 }else if ($page == "location") {
