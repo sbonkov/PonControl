@@ -4,27 +4,21 @@ $mac = $_GET["mac"];
 $ip = $_GET["ip"];
 $sfp = $_GET["sfp"];
 include 'get_rw.php';
-
 if ($mac == NULL) {
 echo "Грешка: не е указан MAC ONU";
 } else if ($sfp == NULL) {
 echo "Грешка: не е указан № на интерфейса";
 } else {
-
 include 'make_bdcom_mac.php';
-
 	$username = "$telnet_user";
 	$password = "$telnet_pass";
     $con = pfsockopen($ip, 23, $errno, $errstr, 10);
-
     $login = $username."\r\n";
     fwrite($con, $login);
     $pass = $password."\r\n";
     fwrite($con, $pass);
     $command = "enable\r\n";
     sleep(1);
-
-
   if ($enable_pass == NULL) {
 } else {
     $enable_password = "$enable_pass";
@@ -32,8 +26,6 @@ include 'make_bdcom_mac.php';
     fwrite($con, $en_pass);
     sleep(1);
 }
-
-
     fwrite($con, $command);
     sleep(1);
     fwrite($con,"\r\n");
@@ -46,14 +38,9 @@ include 'make_bdcom_mac.php';
     $command = "no epon bind-onu mac ".$bdcom_mac."\r\n";
     fwrite($con, $command);
     sleep(1);
-
-
 fclose($con);
-
 //Write
 snmp2_set($ip, $rw, "1.3.6.1.4.1.3320.20.15.1.1.0", 'i', "1");
-
 header("Location: http://$host$uri/$extra?page=olt&olt=$ip");
-
 }
 ?>
