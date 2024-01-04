@@ -106,13 +106,13 @@ echo "<td style=\"padding:0px;\">";
 echo $pwr;
 echo "</td><td style=\"padding:0px;\"></td>";
 }
-   //$epon_sfp = end(explode('/', $nameint));
-   //$epon_sfp = explode(':', $epon_sfp);
-$tmp = explode('/', $nameint);
-$epon_sfp = end($tmp);
-$epon_sfp = explode(':', $epon_sfp);
-   //$epon_sfp = $epon_sfp[0];
-$epon_sfp = !empty($epon_sfp);
+   $epon_sfp = end(explode('/', $nameint));
+   $epon_sfp = explode(':', $epon_sfp);
+//$tmp = explode('/', $nameint);
+//$epon_sfp = end($tmp);
+//$epon_sfp = explode(':', $epon_sfp);
+   $epon_sfp = $epon_sfp[0];
+//$epon_sfp = !empty($epon_sfp);
 // delete onu from olt
 echo "<td><a href=\"index.php?page=unbind_onu&ip=$ip&mac=$mac&sfp=$epon_sfp\"  onclick=\"return confirm('Изтриване на ONU от OLT? ONU-то може да остане в списъка докато не бъде инсталирано повторно. Тази опция отнема няколко минути!!! ')\">X</a></td>";
 //delete onu from database
