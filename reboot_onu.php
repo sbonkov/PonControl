@@ -3,7 +3,7 @@ include 'vars.php';
 $ip = $_GET["olt"];
 include 'get_rw.php';
 $iface = $_GET["iface"];
-$mac = $_GET["mac"];
+$mac = $_GET["mac"] ?? null;
 $host  = $_SERVER['HTTP_HOST'];
 $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 $extra = "index.php?page=onu&olt=$ip&mac=$mac";
