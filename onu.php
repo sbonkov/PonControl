@@ -8,33 +8,26 @@ include 'onu_sensors.php';
 <div align="center">
 <?php
 $olt = $ip;
-
 if ($include == NULL) {
 if ($fdb == "show") {
 $self = $_SERVER['PHP_SELF'];
 include 'get_fdb_by_telnet.php';
-} else {
-if ($lat == 0) {
-echo "Onu не е указано на картата";
-} else {
-echo "<a href=\"index.php?page=onu&olt=$olt&mac=$mac&maptype=heremap\">Here Map</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-echo "<a href=\"index.php?page=onu&olt=$olt&mac=$mac&maptype=heresat\">Here Sat</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-echo "<a href=\"index.php?page=onu&olt=$olt&mac=$mac&maptype=osm\">OpenStreet</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-echo "<a href=\"index.php?page=onu&olt=$olt&mac=$mac\">Yandex Maps</a>";
-echo "<div align=\"center\">";
-echo "<div id=\"map\" style=\"width:600px; height:400px\"></div>";
-echo "</div>";
-}
-echo "<br/><a href=\"index.php?page=location&olt=$olt&mac=$mac\">Укажи координати</a><br/><br/>";
+//} else {
+//if ($lat == 0) {
+//echo "Onu не е указано на картата";
+//} else {
+//echo "<a href=\"index.php?page=onu&olt=$olt&mac=$mac&maptype=heremap\">Here Map</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+//echo "<a href=\"index.php?page=onu&olt=$olt&mac=$mac&maptype=heresat\">Here Sat</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+//echo "<a href=\"index.php?page=onu&olt=$olt&mac=$mac&maptype=osm\">OpenStreet</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+//echo "<a href=\"index.php?page=onu&olt=$olt&mac=$mac\">Yandex Maps</a>";
+//echo "<div align=\"center\">";
+//echo "<div id=\"map\" style=\"width:600px; height:400px\"></div>";
+//echo "</div>";
+//}
+//echo "<br/><a href=\"index.php?page=location&olt=$olt&mac=$mac\">Укажи координати</a><br/><br/>";
 }
 } else {
 include "$include";
 }
-
-
-
-
-
-
 ?>
 </div>
