@@ -1,21 +1,14 @@
 <?php
-
+$olt = $_GET["olt"] ?? null;
 $olt_mark = str_replace('.','_',$olt);
 $mac_mark = str_replace(':','_',$mac);
-
 $mark = $olt_mark.$mac_mark;
-
+$twirl_color = $_GET["twirl_color"] ?? null;
 if ($twirl_color == NULL) {
 $twirl_color = "black";
 } else {
 }
-
-
  ?>
-
-
-
-
 
 var myPlacemark<?php echo $mark; ?> = new ym.Placemark(
                         // Координаты метки
