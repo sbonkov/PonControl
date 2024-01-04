@@ -1,24 +1,19 @@
 <?php
-
 $host = $_SERVER['HTTP_HOST'];
 $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 $extra = 'index.php';
 include 'vars.php';
-
 $MAC = $_GET["mac"];
 if($MAC == ""){
     $link="index.php";
     header("Location: $link");
     exit();
 }
-
 $conn = new mysqli($mysql_host, $mysql_user, $mysql_pass, $mysql_db);
 if($conn->connect_errno){
     echo "Няма връзка с MYSQL";
 }
-
 $conn->set_charset("utf8");
-
 $sql = "select * from onus where mac=\"$MAC\"";
 $retval = $conn->query($sql);
 $number = $retval->num_rows;
@@ -36,6 +31,5 @@ else {
     $link="index.php";
     header("Location: $link");
 }
-$conn->close();
-
+//$conn->close();
 ?>
