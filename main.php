@@ -1,12 +1,9 @@
 <?php
-
 $host  = $_SERVER['HTTP_HOST'];
 $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 $extra = 'index.php';
 include 'vars.php';
-
-
-$page = $_GET["page"];
+$page = $_GET["page"] ?? 'olt_list';
 if ($page == NULL) {
 $page = "olt_list";
 } else {
@@ -20,7 +17,6 @@ $page = "olt_list";
 <link rel="stylesheet" type="text/css" href="style.css" media="all" />
 <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
 <!--[if IE 7]><link rel="stylesheet" type="text/css" href="style/css/ie7.css" media="all" /><![endif]-->
-
 </head>
 <body>
 <div id="contain">
@@ -50,7 +46,6 @@ $page = "olt_list";
   <!-- Begin Wrapper -->
   <div id="wrapper">
   <div id="container">
-
 <?php include "$page.php"; ?>
   </div>
   </div>
