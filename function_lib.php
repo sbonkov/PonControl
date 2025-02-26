@@ -66,7 +66,7 @@ return $vendor_id;
 // ---------- Get ONU Model ID () ----------
 
 function GetModelID($ip, $ro, $iface) {
-$model_id = snmp2_get($ip, $ro, "1.3.6.1.4.1.3320.101.10.1.1.85.$iface");
+$model_id = snmp2_get($ip, $ro, "1.3.6.1.4.1.3320.101.10.1.1.4.$iface");
 //$model_id = end(explode('STRING: ', $model_id));
 $tmp = explode('STRING: ', $model_id);
 $model_id = end($tmp);
