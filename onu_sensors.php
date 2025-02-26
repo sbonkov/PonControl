@@ -45,7 +45,10 @@ echo "МАК: $mac";
 echo "<br>";
 echo "Производител: $vendor_id";
 echo "<br>";
-echo "Модел: $model_id";
+$result = str_replace(' ', '', $model_id); //remove blank space
+$model = hex2bin($result); //HEX to string
+echo "Модел: $model";
+//echo "Модел: $model_id"; //HEX
 echo "<br>";
 echo "</a>";
 echo "</b><br/>";
