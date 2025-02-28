@@ -28,6 +28,7 @@ $place = $row['place'];
 $vendor_id = GetVendorID($ip, $ro, $iface);
 $model_id = GetModelID($ip, $ro, $iface);
 $onu_alivetime = GetOnuAliveTime($ip, $ro, $iface);
+$temp = TempById($ip, $ro, $iface);
 $conn->close();
 //echo "<br/>";
 echo "<div style=\"float: left; display: table-cell; vertical-align: middle; top: 50%;\">";
@@ -49,6 +50,8 @@ $result = str_replace(' ', '', $model_id); //remove blank space
 $model = hex2bin($result); //HEX to string
 echo "Модел: $model";
 //echo "Модел: $model_id"; //HEX
+echo "<br>";
+echo mb_strimwidth('Температура: '.$temp, 0, 19, '°C'); //show short ONU temp
 echo "<br>";
 echo "</a>";
 echo "</b><br/>";
