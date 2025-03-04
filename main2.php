@@ -3,7 +3,9 @@ $host  = $_SERVER['HTTP_HOST'];
 $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 $extra = 'index.php';
 include 'vars.php';
-$fdb = $_GET["fdb"] ?? null;
+$fdb = $_GET["fdb"] ?? null; //get client mac address
+$catv1 = $_GET["catv1"] ?? null; //catv enable
+$catv0 = $_GET["catv0"] ?? null; //catv disable
 $ip = $_GET["olt"];
 $maptype = $_GET["maptype"] ?? null;
 $count = $_GET["count"] ?? null;
