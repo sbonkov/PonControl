@@ -12,6 +12,16 @@ if ($include == NULL) {
 if ($fdb == "show") {
 $self = $_SERVER['PHP_SELF'];
 include 'get_fdb_by_telnet.php';
+
+else {
+if ($catv1 == "show")
+{$self = $_SERVER['PHP_SELF'];
+include 'catv1.php';}} //TV ON
+
+if ($catv0 == "show")
+{$self = $_SERVER['PHP_SELF'];
+include 'catv0.php';} //TV OFF
+  
 //} else {
 //if ($lat == 0) {
 //echo "Onu не е указано на картата";
