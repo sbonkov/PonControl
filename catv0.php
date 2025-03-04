@@ -20,7 +20,7 @@
 }
     fwrite($con, "conf\r\n"); //configure
     sleep(1);
-    fwrite($con, "int ".$nameint."\r\n");//enter interface    
+    fwrite($con, "int ".$nameint."\r\n");//enter interface
     sleep(1);
     fwrite($con, "epon onu catv disable\r\n");//onu catv disable
     sleep(2);
@@ -41,8 +41,6 @@ echo "<table border=\"0\" cellspacing=\"5\">";
 echo "<tr><td><div style=\"display: table-cell; vertical-align: middle; \">";
 echo "TV IS OFF";
 echo "</div></td><td>";
-echo "<td></td>";
-echo "</td><td>";
 echo "</td></tr>";
 echo "</table>";
 ?>
