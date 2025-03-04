@@ -17,3 +17,4 @@ On the onu page it shows the name of the olt instead of its ip address.
 
 Added option to delete onu from OLT and database. 
 
+Added option to turn on and off the television for RF devices 
